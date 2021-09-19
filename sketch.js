@@ -14,7 +14,8 @@ function setup() {
   engine = Engine.create();
   world = engine.world;
 
-  ground = Bodies.rectangle(0,395,1000,10,{isStatic:true});
+  var options = {isStatic:true}
+  ground = Bodies.rectangle(400,395,1000,10,options);
   World.add(world, ground);
 
   for(k=0; k<=width; k=k+80){
@@ -28,9 +29,7 @@ function setup() {
     plinkos.push(new Plinkos(j, 105))
   }
 
-  if(frameCount % 60 === 0){
-    particles.push(new Particles(random(5,795),0,10));
-  }
+
   console.log(particles.length);
 
 }
@@ -40,13 +39,16 @@ function draw() {
   Engine.update(engine);
 
   fill("green");
-  rect(ground.position.x, ground.position.y, 1000, 10);
+  rect(ground.position.x, ground.position.y, 20000, 10);
 
   for(var k=0; k<divisions.length;k++){
     divisions[k].display();
   }
   for(var j=0; j<plinkos.length; j++){
     plinkos[j].display();
+  }
+  if(frameCount % 10 === 0){
+    particles.push(new Particles(random(5,795),0));
   }
   for(var l=0; l<particles.length; l=l+1){
     particles[l].display();
